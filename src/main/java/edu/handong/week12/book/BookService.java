@@ -4,6 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 @Service
 public class BookService {
@@ -13,9 +16,10 @@ public class BookService {
     this.repository = repository;
   }
 
-  public List<Book> findAll() {
-    return repository.findAll();
-  } // TODO STEP 6: Pagination/Sorting
+
+  public Page<Book> findAll(Pageable pageable) {
+    return repository.findAll(pageable);
+  }// TODO STEP 6: Pagination/Sorting
 
   public Book findById(Long id) {
     return repository.findById(id)
@@ -25,6 +29,7 @@ public class BookService {
             ));
   }
   // TODO STEP 5: 404
+
 
   public Book create(Book book) {
     return repository.save(book);
