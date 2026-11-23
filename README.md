@@ -1,7 +1,10 @@
 # 웹서비스 개발 01분반 12주차 22200543 이어진
 
 ## 1. Project Information: 프로젝트 소개, GitHub URL, Render URL
-
+프로젝트 소개 :
+조직 GitHub URL : https://github.com/2026-2-WebService/assign12-c01-22200543
+개인 GitHub Repository URL : https://github.com/eojinleecode/22200543-assgin12    
+Render URL : https://two2200543-assgin12.onrender.com/api/books
 
 
 
@@ -43,7 +46,27 @@
 
 
 ## 6. Testing & Deployment: results/ 스크린샷 6장 이상 및 배포 URL
+![ API 테스트 화면](results/step1-postman-post.png)
+![ API 테스트 화면](results/step1-postman-post.png)
+![ API 테스트 화면](results/step1-postman-post.png)
+![ API 테스트 화면](results/step1-postman-post.png)
+* API 테스트 화면
+![ DTO 적용 후 POST 성공](results/02_dto_created.png)
+* DTO 적용 후 POST 성공
+![ 잘못된 입력 요청 ](results/03_validation.png)
+* 잘못된 입력 요청
+![존재하지 않는 ID](results/04_not_found.png)
+* 존재하지 않는 ID
+![페이지/정렬 적용 결과](results/05_pagination.png)
+* 페이지/정렬 적용 결과
+![Swagger UI/API 테스트 화면](results/06_swagger.png)
+* Swagger UI/API 테스트 화면
+
+
 
 
 
 ## 7. Weekly Review: 새롭게 배운 내용 3가지, 어려웠던 점과 해결 방법, AI 활용 내용 및 느낀 점
+* 새롭게 배운 내용 3가지:
+* 어려웠던 점과 해결 방법: 
+* AI 활용 내용 및 느낀 점 :
