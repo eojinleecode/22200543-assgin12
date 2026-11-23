@@ -1,5 +1,6 @@
 package edu.handong.week12.book;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,27 +15,57 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> list() {
-        return service.findAll();
+    public ResponseEntity<List<BookResponse>> list() {
+        List<BookResponse> books = service.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(books);
     } // TODO: Pageable
 
     @GetMapping("/{id}")
-    public Book get(@PathVariable Long id) {
-        return service.findById(id);
+    public ResponseEntity<BookResponse> get(@PathVariable Long id) {
+        Book book = service.findById(id);
+        return ResponseEntity.ok(toResponse(book));
     }
 
     @PostMapping
-    public Book create(@RequestBody Book input) {
-        return service.create(input);
-    } // TODO: @Valid, ResponseEntity 201
+    public ResponseEntity<BookResponse> create(@RequestBody BookRequest input) {
+            Book book = new Book(input.title(), input.author(), input.price());
+             Book saved =service.create(book);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(toResponse(saved));
+    }
+    // TODO: @Valid, ResponseEntity 201
 
     @PutMapping("/{id}")
-    public Book update(@PathVariable Long id, @RequestBody Book input) {
-        return service.update(id, input);
+    public ResponseEntity<BookResponse> update(
+            @PathVariable Long id, @RequestBody BookRequest input) {
+
+        Book book = new Book(input.title(), input.author(), input.price());
+        Book updated = service.update(id, book);
+
+        return ResponseEntity.ok(toResponse(updated));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
-    } // TODO: 204
+        return ResponseEntity.noContent().build();
+    }
+    // TODO: 204
+
+
+    private BookResponse toResponse(Book book) {
+        return new BookResponse(
+                book.getId(),
+                book.getTitle(),
+                book.getAuthor(),
+                book.getPrice()
+        );
+    }
+
+
 }
