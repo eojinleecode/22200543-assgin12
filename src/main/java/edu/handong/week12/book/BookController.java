@@ -2,7 +2,7 @@ package edu.handong.week12.book;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +31,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookResponse> create(@RequestBody BookRequest input) {
+    public ResponseEntity<BookResponse> create(@Valid @RequestBody BookRequest input) {
             Book book = new Book(input.title(), input.author(), input.price());
              Book saved =service.create(book);
 
@@ -42,7 +42,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     public ResponseEntity<BookResponse> update(
-            @PathVariable Long id, @RequestBody BookRequest input) {
+            @PathVariable Long id,@Valid @RequestBody BookRequest input) {
 
         Book book = new Book(input.title(), input.author(), input.price());
         Book updated = service.update(id, book);

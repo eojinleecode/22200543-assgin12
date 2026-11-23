@@ -1,5 +1,7 @@
 package edu.handong.week12.book;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -16,8 +18,13 @@ public class BookService {
   } // TODO STEP 6: Pagination/Sorting
 
   public Book findById(Long id) {
-    return repository.findById(id).orElseThrow();
-  } // TODO STEP 5: 404
+    return repository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Book not found: " + id
+            ));
+  }
+  // TODO STEP 5: 404
 
   public Book create(Book book) {
     return repository.save(book);
@@ -29,7 +36,10 @@ public class BookService {
     return repository.save(book);
   }
 
+
   public void delete(Long id) {
+    findById(id);
     repository.deleteById(id);
-  } // TODO: 404 if absent
+  }
+  // TODO: 404 if absent
 }
